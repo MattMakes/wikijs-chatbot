@@ -60,17 +60,21 @@
                 <v-icon small>mdi-file-document</v-icon>
                 <span>Sources:</span>
               </div>
-              <v-chip
+              <a
                 v-for="(source, idx) in message.sources"
                 :key="idx"
-                small
-                outlined
-                class="source-chip"
                 :href="`/${source.path}`"
                 target="_blank"
+                style="text-decoration: none;"
               >
-                {{ source.title }}
-              </v-chip>
+                <v-chip
+                  small
+                  outlined
+                  class="source-chip"
+                >
+                  {{ source.title }}
+                </v-chip>
+              </a>
             </div>
           </div>
         </div>
@@ -109,7 +113,9 @@
 <script>
 import axios from 'axios';
 import DOMPurify from 'dompurify';
-import { marked } from 'marked';
+// Support both marked v4+ (named export) and earlier versions (default export)
+import marked from 'marked';
+const markedParser = marked.parse || marked;
 
 export default {
   name: 'ChatBot',
@@ -132,8 +138,11 @@ export default {
   methods: {
     async initSession() {
       try {
+        // Get user ID from Vuex store if available
+        const userId = this.$store?.state?.user?.id || null;
+
         const response = await axios.post(`${this.apiBaseUrl}/api/chat/session`, {
-          userId: this.$store.state.user?.id || null
+          userId
         });
         this.sessionId = response.data.sessionId;
       } catch (error) {
@@ -191,8 +200,14 @@ export default {
     },
 
     renderMarkdown(text) {
-      const html = marked.parse(text || '');
-      return DOMPurify.sanitize(html);
+      if (!text) return '';
+      try {
+        const html = markedParser(text);
+        return DOMPurify.sanitize(html);
+      } catch (error) {
+        console.error('Failed to render markdown:', error);
+        return DOMPurify.sanitize(text);
+      }
     },
 
     scrollToBottom() {
