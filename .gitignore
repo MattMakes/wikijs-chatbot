@@ -37,3 +37,6 @@ build/
 # Temporary files
 tmp/
 temp/
+
+# Wiki.js clone (clone separately as needed)
+wikijs/
