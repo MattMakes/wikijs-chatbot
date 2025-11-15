@@ -1,0 +1,19 @@
+{
+  "name": "wikijs-chatbot-frontend",
+  "version": "1.0.0",
+  "description": "Chatbot UI component for Wiki.js",
+  "main": "chatbot-plugin.js",
+  "scripts": {
+    "build": "echo 'Copy ChatBot.vue to wikijs/client/components/'"
+  },
+  "keywords": ["wikijs", "chatbot", "vue"],
+  "author": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "vue": "^2.6.0",
+    "vuetify": "^2.0.0",
+    "axios": "^0.21.0",
+    "dompurify": "^2.0.0",
+    "marked": "^4.0.0"
+  }
+}

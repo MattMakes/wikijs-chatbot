@@ -1,0 +1,28 @@
+{
+  "name": "wikijs-chatbot-backend",
+  "version": "1.0.0",
+  "description": "Chatbot backend for Wiki.js with RAG capabilities",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "index": "node indexer.js"
+  },
+  "keywords": ["wikijs", "chatbot", "rag", "openai"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "openai": "^4.20.0",
+    "pg": "^8.11.0",
+    "knex": "^3.0.1",
+    "body-parser": "^1.20.2",
+    "uuid": "^9.0.0",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
